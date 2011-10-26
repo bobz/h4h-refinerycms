@@ -83,13 +83,22 @@ end
 # gem 'rack', :git => 'git://github.com/rack/rack.git'
 # gem 'arel', :git => 'git://github.com/rails/arel.git'
 
-if defined? JRUBY_VERSION
-  gem 'activerecord-jdbcsqlite3-adapter',
-      :git => 'git://github.com/nicksieger/activerecord-jdbc-adapter.git'
-  gem 'jruby-openssl'
-else
+#  Ignore Jruby stuff, use pg for Heroku and sqlyte3 for dev
+# if defined? JRUBY_VERSION
+#   gem 'activerecord-jdbcsqlite3-adapter',
+#       :git => 'git://github.com/nicksieger/activerecord-jdbc-adapter.git'
+#   gem 'jruby-openssl'
+# else
+#   gem 'sqlite3'
+#   gem 'mysql2'
+# end
+
+group :production do
+  gem 'pg'
+end
+
+group :development, :test do
   gem 'sqlite3'
-  gem 'mysql2'
 end
 
 # Gems used only for assets and not required
